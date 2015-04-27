@@ -30,7 +30,8 @@
 	enh-ruby-mode
 	smartparens
 	rainbow-mode
-	company))
+	company
+	magit))
 
 ; fetch the list of packages available 
 (unless package-archive-contents
@@ -110,4 +111,4 @@ Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (other-window -1))
 
-(global-set-key (kbd "C-c p") 'switch-to-previous-buffer)
+(global-set-key (kbd "C-x p") 'switch-to-previous-buffer)
