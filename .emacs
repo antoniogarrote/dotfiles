@@ -31,7 +31,8 @@
 	smartparens
 	rainbow-mode
 	company
-	magit))
+	magit
+	cider))
 
 ; fetch the list of packages available 
 (unless package-archive-contents
