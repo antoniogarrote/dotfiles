@@ -32,7 +32,9 @@
 	rainbow-mode
 	company
 	magit
-	cider))
+	cider
+	markdown-mode
+	yaml-mode))
 
 ; fetch the list of packages available 
 (unless package-archive-contents
@@ -92,6 +94,8 @@
 
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
 
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
 ;; Other things
 
