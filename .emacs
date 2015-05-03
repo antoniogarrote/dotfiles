@@ -33,8 +33,13 @@
 	company
 	magit
 	cider
+	paredit
+	paredit-everywhere
 	markdown-mode
-	yaml-mode))
+	yaml-mode
+	rainbow-blocks
+	rainbow-delimiters
+	hl-line+))
 
 ; fetch the list of packages available 
 (unless package-archive-contents
@@ -97,6 +102,7 @@
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
+
 ;; Other things
 
 (tool-bar-mode -1)
@@ -117,3 +123,13 @@ Repeated invocations toggle between the two most recently open buffers."
   (other-window -1))
 
 (global-set-key (kbd "C-x p") 'switch-to-previous-buffer)
+
+;; Leiningen / clojure
+(custom-set-variables '(cider-lein-command "/usr/local/bin/lein"))
+
+(add-hook 'clojure-mode-hook  #'enable-paredit-mode)
+
+(require 'rainbow-delimiters)
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+(show-paren-mode t)
+(hl-line-mode t)
