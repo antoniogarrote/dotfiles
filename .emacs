@@ -1,7 +1,7 @@
 ;; Adding packages repositories
 (require 'package)
 
-(add-to-list 'package-archives	       
+(add-to-list 'package-archives
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (add-to-list 'package-archives
 	     '("marmalade" . "https://marmalade-repo.org/packages/") t)
@@ -41,7 +41,7 @@
 	rainbow-delimiters
 	hl-line+))
 
-; fetch the list of packages available 
+; fetch the list of packages available
 (unless package-archive-contents
   (package-refresh-contents))
 
@@ -92,7 +92,7 @@
 (require 'enh-ruby-mode)
 
 ; must be added after any path containing old ruby-mode
-(add-to-list 'load-path "(path-to)/Enhanced-Ruby-Mode") 
+(add-to-list 'load-path "(path-to)/Enhanced-Ruby-Mode")
 (autoload 'enh-ruby-mode "enh-ruby-mode" "Major mode for ruby files" t)
 (add-to-list 'auto-mode-alist '("\\.rb$" . enh-ruby-mode))
 (add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
@@ -102,6 +102,7 @@
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
 
+(add-hook 'enh-ruby-mode 'paredit-everywhere-mode)
 
 ;; Other things
 
@@ -132,4 +133,6 @@ Repeated invocations toggle between the two most recently open buffers."
 (require 'rainbow-delimiters)
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 (show-paren-mode t)
-(hl-line-mode t)
+(global-hl-line-mode t)
+
+(add-hook 'before-save-hook 'whitespace-cleanup)
