@@ -62,7 +62,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (interactive)
   (other-window -1))
 
-(global-set-key (kbd "C-x p") 'switch-to-prev-buffer)
+(global-set-key (kbd "C-x p") 'switch-to-previous-buffer)
 
 (global-hl-line-mode t)
 
