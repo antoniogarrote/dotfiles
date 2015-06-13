@@ -7,7 +7,11 @@
 	nyan-mode
         yalinum
 	monokai-theme
-        markdown-mode))
+        markdown-mode
+        rspec-mode
+        rubocop
+        ruby-additional
+        ruby-dev))
 
 ; install the missing packages
 (dolist (package package-list)
@@ -34,6 +38,10 @@
 (require 'robe)
 (add-hook 'ruby-mode-hook 'robe-mode)
 
+(require 'rubocop)
+(add-hook 'ruby-mode-hook 'rubocop-mode)
+
+(require 'rspec-mode)
 ;; Other things
 
 ; Display ido results vertically, rather than horizontally
@@ -67,3 +75,10 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-hl-line-mode t)
 
 (add-hook 'before-save-hook 'whitespace-cleanup)
+
+(require 'ansi-color)
+(defun colorize-compilation-buffer ()
+  (toggle-read-only)
+  (ansi-color-apply-on-region (point-min) (point-max))
+  (toggle-read-only))
+(add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
