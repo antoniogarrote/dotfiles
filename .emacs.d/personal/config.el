@@ -42,6 +42,10 @@
 (add-hook 'ruby-mode-hook 'rubocop-mode)
 
 (require 'rspec-mode)
+
+(autoload 'turn-on-ruby-dev "ruby-dev" nil t)
+(add-hook 'ruby-mode-hook 'turn-on-ruby-dev)
+
 ;; Other things
 
 ; Display ido results vertically, rather than horizontally
