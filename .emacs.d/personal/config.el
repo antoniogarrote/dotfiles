@@ -46,6 +46,8 @@
 (autoload 'turn-on-ruby-dev "ruby-dev" nil t)
 (add-hook 'ruby-mode-hook 'turn-on-ruby-dev)
 
+(add-hook 'after-init-hook 'inf-ruby-switch-setup)
+
 ;; Other things
 
 ; Display ido results vertically, rather than horizontally
