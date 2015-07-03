@@ -88,3 +88,5 @@ Repeated invocations toggle between the two most recently open buffers."
   (ansi-color-apply-on-region (point-min) (point-max))
   (toggle-read-only))
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
+
+(cua-selection-mode t)
