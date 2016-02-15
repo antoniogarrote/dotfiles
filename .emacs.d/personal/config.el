@@ -6,6 +6,7 @@
 	robe
 	nyan-mode
         yalinum
+        flx-ido
 	monokai-theme
         markdown-mode
         rspec-mode
@@ -15,6 +16,7 @@
         neotree
         fiplr
         symon
+        ruby-tools
         pdf-tools))
 
 (global-set-key (kbd "C-x <C-backspace>") 'erase-buffer)
@@ -97,16 +99,34 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (cua-selection-mode t)
 
-
 ; max-width line
 (setq whitespace-line-column 120)
+
+(require 'ruby-tools)
+(add-hook 'ruby-mode 'ruby-tools-mode)
+
+(require 'flx-ido)
+(require 'ido)
+
+(add-hook 'projectile-mode-hook 'projectile-rails-on)
+
 
 (beacon-mode 1)
 (setq beacon-push-mark 35)
 (setq beacon-color "#666600")
 
+
 (require 'neotree)
-(global-set-key [tab tab] 'neotree-toggle)
+(global-set-key (kbd "C-x t") 'neotree-toggle)
 
 (require 'symon)
 (symon-mode)
+
+
+;; increment number
+(defun increment-number-at-point ()
+  (interactive)
+  (skip-chars-backward "0123456789")
+  (or (looking-at "[0123456789]+")
+      (error "No number at point"))
+  (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))

@@ -81,15 +81,15 @@
 (require 'projectile-rails)
 (projectile-global-mode)
 
-(add-hook 'projectile-mode-hook 'projectile-rails-on)
-
 
 (require 'robe)
 (add-hook 'ruby-mode-hook 'robe-mode)
-;(defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
-;  (rvm-activate-corresponding-ruby))
+(defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
+  (rvm-activate-corresponding-ruby))
 
 (require 'enh-ruby-mode)
+
+(add-hook 'projectile-mode-hook 'projectile-rails-on)
 
 ; must be added after any path containing old ruby-mode
 (add-to-list 'load-path "(path-to)/Enhanced-Ruby-Mode")
@@ -136,3 +136,5 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-hl-line-mode t)
 
 (add-hook 'before-save-hook 'whitespace-cleanup)
+(require 'whitespace)
+(setq whitespace-line-column 2000)
