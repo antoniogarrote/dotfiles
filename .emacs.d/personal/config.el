@@ -11,7 +11,13 @@
         rspec-mode
         rubocop
         ruby-additional
-        ruby-dev))
+        ruby-dev
+        neotree
+        fiplr
+        symon
+        pdf-tools))
+
+(global-set-key (kbd "C-x <C-backspace>") 'erase-buffer)
 
 ; install the missing packages
 (dolist (package package-list)
@@ -90,3 +96,17 @@ Repeated invocations toggle between the two most recently open buffers."
 (add-hook 'compilation-filter-hook 'colorize-compilation-buffer)
 
 (cua-selection-mode t)
+
+
+; max-width line
+(setq whitespace-line-column 120)
+
+(beacon-mode 1)
+(setq beacon-push-mark 35)
+(setq beacon-color "#666600")
+
+(require 'neotree)
+(global-set-key [tab tab] 'neotree-toggle)
+
+(require 'symon)
+(symon-mode)
