@@ -130,3 +130,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (or (looking-at "[0123456789]+")
       (error "No number at point"))
   (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
+
+;; zone
+(require 'zone)
+(setq zone-timer (run-with-idle-timer 60 t 'zone))
