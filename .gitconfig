@@ -3,3 +3,6 @@
   ci = commit
   st = status
   br = branch
+[user]
+  name = Antonio Garrote
+  email = antoniogarrote@gmail.com

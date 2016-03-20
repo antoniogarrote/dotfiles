@@ -6,6 +6,7 @@
 	robe
 	nyan-mode
         yalinum
+        flx-ido
 	monokai-theme
         markdown-mode
         rspec-mode
@@ -16,6 +17,7 @@
         fiplr
         symon
         pdf-tools
+        ruby-tools
         scala-mode2
         sbt-mode
         scala-outline-popup
@@ -25,8 +27,6 @@
         rust-mode
         toml
         toml-mode))
-
-
 
 ; install the missing packages
 (dolist (package package-list)
@@ -107,13 +107,22 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (cua-selection-mode t)
 
-
 ; max-width line
 (setq whitespace-line-column 120)
+
+(require 'ruby-tools)
+(add-hook 'ruby-mode 'ruby-tools-mode)
+
+(require 'flx-ido)
+(require 'ido)
+
+(add-hook 'projectile-mode-hook 'projectile-rails-on)
+
 
 (beacon-mode 1)
 (setq beacon-push-mark 35)
 (setq beacon-color "#666600")
+
 
 (require 'neotree)
 (global-set-key (kbd "C-x t") 'neotree-toggle)
@@ -141,3 +150,15 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (global-set-key (kbd "TAB") #'company-indent-or-complete-common)
 (setq company-tooltip-align-annotations t)
+
+;; increment number
+(defun increment-number-at-point ()
+  (interactive)
+  (skip-chars-backward "0123456789")
+  (or (looking-at "[0123456789]+")
+      (error "No number at point"))
+  (replace-match (number-to-string (1+ (string-to-number (match-string 0))))))
+
+;; zone
+(require 'zone)
+(setq zone-timer (run-with-idle-timer 60 t 'zone))
