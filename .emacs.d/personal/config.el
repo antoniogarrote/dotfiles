@@ -15,9 +15,18 @@
         neotree
         fiplr
         symon
-        pdf-tools))
+        pdf-tools
+        scala-mode2
+        sbt-mode
+        scala-outline-popup
+        ensime
+        company
+        racer-mode
+        rust-mode
+        toml
+        toml-mode))
 
-(global-set-key (kbd "C-x <C-backspace>") 'erase-buffer)
+
 
 ; install the missing packages
 (dolist (package package-list)
@@ -25,6 +34,7 @@
     (package-install package)))
 
 
+(global-set-key (kbd "C-x <C-backspace>") 'erase-buffer)
 ;; Ruby things
 
 (require 'flymake-ruby)
@@ -106,7 +116,28 @@ Repeated invocations toggle between the two most recently open buffers."
 (setq beacon-color "#666600")
 
 (require 'neotree)
-(global-set-key [tab tab] 'neotree-toggle)
+(global-set-key (kbd "C-x t") 'neotree-toggle)
 
 (require 'symon)
 (symon-mode)
+
+
+;; scala mode
+(require 'scala-mode2)
+
+
+(require 'ensime)
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+
+
+;; rust
+
+(setq racer-cmd "~/.cargo/bin/racer")
+(setq racer-rust-src-path "~/Development/rs/rustc-1.7.0/src")
+
+(add-hook 'rust-mode-hook #'racer-mode)
+(add-hook 'racer-mode-hook #'eldoc-mode)
+(add-hook 'racer-mode-hook #'company-mode)
+
+(global-set-key (kbd "TAB") #'company-indent-or-complete-common)
+(setq company-tooltip-align-annotations t)
