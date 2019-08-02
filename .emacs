@@ -25,7 +25,8 @@
 	projectile-rails
 	robe
 	nyan-mode
-	color-theme-monokai
+	monokai-theme
+	;;color-theme-monokai
 	nlinum
 	enh-ruby-mode
 	smartparens
@@ -39,7 +40,11 @@
 	yaml-mode
 	rainbow-blocks
 	rainbow-delimiters
-	hl-line+))
+	hl-line
+	rust-mode
+	flycheck-rust
+	racer
+	cargo))
 
 ; fetch the list of packages available
 (unless package-archive-contents
@@ -50,6 +55,12 @@
   (unless (package-installed-p package)
     (package-install package)))
 
+;; cua mdoe only for rectangles
+(setq cua-enable-cua-keys nil) ;; only for rectangles
+(cua-mode t)
+
+;; disable menu
+(menu-bar-mode -1)
 
 ;; Ruby things
 
@@ -109,7 +120,8 @@
 (tool-bar-mode -1)
 (scroll-bar-mode -1)
 (nyan-mode t)
-(color-theme-monokai)
+;;(color-theme-monokai)
+(load-theme 'monokai)
 (require 'nlinum)
 (global-nlinum-mode t)
 (smartparens-global-mode t)
@@ -126,7 +138,18 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-set-key (kbd "C-x p") 'switch-to-previous-buffer)
 
 ;; Leiningen / clojure
-(custom-set-variables '(cider-lein-command "/usr/local/bin/lein"))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(cider-lein-command "/usr/local/bin/lein")
+ '(custom-safe-themes
+   (quote
+    ("bd7b7c5df1174796deefce5debc2d976b264585d51852c962362be83932873d9" default)))
+ '(package-selected-packages
+   (quote
+    (cargo rust-mode yaml-mode smartparens rvm robe rainbow-mode rainbow-delimiters rainbow-blocks projectile-rails paredit-everywhere nyan-mode nlinum markdown-mode magit flymake-ruby flx-ido enh-ruby-mode company color-theme-monokai cider))))
 
 (add-hook 'clojure-mode-hook  #'enable-paredit-mode)
 
@@ -138,3 +161,28 @@ Repeated invocations toggle between the two most recently open buffers."
 (add-hook 'before-save-hook 'whitespace-cleanup)
 (require 'whitespace)
 (setq whitespace-line-column 2000)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; rust
+(add-hook 'rust-mode-hook 'cargo-minor-mode)
+
+(add-hook 'rust-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "C-c <tab>") #'rust-format-buffer)))
+
+ (setenv "PATH" (concat (getenv "PATH") ":/.cargo/bin"))
+(setq exec-path (append exec-path '("~/.cargo/bin"))
+
+(setq racer-cmd "~/.cargo/bin/racer") ;; Rustup binaries PATH
+(setq racer-rust-src-path "/home/agarrote/Development/rust-lang/rust/src") ;; Rust source code PATH
+
+(add-hook 'rust-mode-hook #'racer-mode)
+(add-hook 'racer-mode-hook #'eldoc-mode)
+(add-hook 'racer-mode-hook #'company-mode)
+
+(add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
